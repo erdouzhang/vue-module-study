@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s;
+        }
+        .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    {{message}}
+</div>
+<div id="app-2">
+    <span v-bind:title="message">
+         鼠标悬停几秒钟查看此处动态绑定的提示信息！
+    </span>
+</div>
+<section id="v-section">
+    <nav v-if="sceen">隐藏、显示</nav>
+</section>
+<!--绑定数组添加列表-->
+<article id = "v-article-id">
+    <section>
+        <ol>
+             <li v-for="todo in todos">
+                 {{todo.text}}
+             </li>
+        </ol>
+    </section>
+</article>
+<!--添加事件监听-->
+<header id="vue-header-id">
+    <nav>{{message}}</nav>
+   　<button type="button" v-on:click="reverseMessage">逆转消息</button>
+</header>
+<!--双向绑定-->
+<section id="data-double">
+    <p>{{message}}</p>
+    <input type="text" v-model="message">
+</section>
+<!--实例
+每个 Vue 应用都是通过用 Vue 函数创建一个新的 Vue 实例开始的：
+数据与方法
+-->
+<section>
+    <!--单元素/组件的过渡-->
+
+    <div id="demo">
+        <button v-on:click="show = !show">
+            Toggle
+        </button>
+        <transition name="fade">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+
+
+</section>
+
+<script>
+    var app = new Vue({
+        el : '#app',
+        data :{
+           message: "Hello World!"
+    }
+ });
+  var app2 = new Vue({
+        el:'#app-2',
+        data:{
+            message:'页面加载于'+new Date().toLocaleString()
+        }
+
+    });
+  var app3 = new Vue({
+      el:'#v-section',
+      data:{
+          sceen:true
+      }
+  });
+  var app4 = new Vue({
+      el:'#v-article-id',
+      data:{
+         todos:[
+             { text: '学习 JavaScript' },
+             { text: '学习 Vue' },
+             { text: '整个牛项目' }
+             ]
+      }
+  });
+  var app5 = new Vue({
+      el:"#vue-header-id",
+      data:{
+         message:"事件监听"
+      },
+      methods:{
+          reverseMessage: function () {
+              this.message = this.message.split('').reverse().join('')
+          }
+      }
+  });
+  var app6 = new Vue({
+      el:"#data-double",
+      data:{
+          message:"双向数据绑定"
+      }
+
+  });
+    new Vue({
+        el: '#demo',
+        data: {
+            show: true
+        }
+    })
+</script>
+</body>
+</html>
